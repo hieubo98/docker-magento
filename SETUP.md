@@ -31,7 +31,7 @@ bin/clinotty bin/magento setup:install \
   --admin-firstname=Admin \
   --admin-lastname=Admin \
   --admin-email=admin@gmail.com \
-  --admin-user=admin2 \
+  --admin-user=admin \
   --admin-password=admin@123 \
   --language=en_US \
   --currency=USD \
