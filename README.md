@@ -136,8 +136,137 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 ## Misc Info
 
+### Caching
+
+For an improved developer experience, caches are automatically refreshed when related files are updated, courtesy of [cache-clean](https://github.com/mage2tv/magento-cache-clean). This means you can keep all of the standard Magento caches enabled, and this script will only clear the specific caches needed, and only when necessary.
+
+To disable this functionality, uncomment the last line in the `bin/start` file to disable the watcher.
+
 ### Database
 
 The hostname of each service is the name of the service within the `docker-compose.yml` file. So for example, MySQL's hostname is `db` (not `localhost`) when accessing it from within a Docker container. Elasticsearch's hostname is `elasticsearch`.
 
 To connect to the MySQL CLI tool of the Docker instance, run:
+
+```
+bin/mysql
+```
+
+You can use the `bin/mysql` script to import a database, for example a file stored in your local host directory at `backups/magento.sql`:
+
+```
+bin/mysql < backups/magento.sql
+```
+
+You also can use `bin/mysqldump` to export the database. The file will appear in your local host directory at `backups/magento.sql`:
+
+```
+bin/mysqldump > backups/magento.sql
+```
+
+### Composer Authentication
+
+First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
+
+Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
+
+### Email / Mailhog
+
+View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
+
+### Redis
+
+Redis is now the default cache and session storage engine, and is automatically configured & enabled when running `bin/setup` on new installs.
+
+Use the following lines to enable Redis on existing installs:
+
+**Enable for Cache:**
+
+`bin/magento config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0`
+
+**Enable for Full Page Cache:**
+
+`bin/magento config:set --page-cache=redis --page-cache-redis-server=redis --page-cache-redis-db=1`
+
+**Enable for Session:**
+
+`bin/magento config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2`
+
+You may also monitor Redis by running: `bin/redis redis-cli monitor`
+
+For more information about Redis usage with Magento, <a href="https://devdocs.magento.com/guides/v2.4/config-guide/redis/redis-session.html" target="_blank">see the DevDocs</a>.
+
+### Xdebug & VS Code
+
+Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
+
+Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/markshust/docker-magento/blame/master/compose/.vscode/launch.json) file.
+
+### Xdebug & PHPStorm
+
+1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PHPStorm from the list and click Save.
+
+2.  Next, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C then `bin/start`).
+
+3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
+
+    * `CLI Interpreter`
+        * Create a new interpreter and specify `From Docker`, and name it `markoshust/magento-php:7-2-fpm`.
+        * Choose `Docker`, then select the `markoshust/magento-php:7-2-fpm` image name, and set the `PHP Executable` to `php`.
+
+    * `Path mappings`
+        * Don't do anything here as the next `Docker container` step will automatically setup a path mapping from `/var/www/html` to `./src`.
+
+    * `Docker container`
+        * Remove any pre-existing volume bindings.
+        * Ensure a volume binding has been setup for Container path of `/var/www/html` mapped to the Host path of `./src`.
+
+4. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Debug` and set Debug Port to `9001,9003`.
+
+5. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > DBGp Proxy` and set Port to `9001`.
+
+6. Open `PHPStorm > Preferences > Languages & Frameworks > PHP > Servers` and create a new server:
+
+    * Set Name and Host to your domain name (ex. `magento.test`)
+    * Keep port set to `80`
+    * Check the Path Mappings box and map `src` to the absolute path of `/var/www/html`
+
+7. Go to `Run > Edit Configurations` and create a new `PHP Remote Debug` configuration by clicking the plus sign and selecting it. Set the Name to your domain (ex. `magento.test`). Check the `Filter debug connection by IDE key` checkbox, select the server you just setup, and under IDE Key enter `PHPSTORM`. This IDE Key should match the IDE Key set by the Chrome Xdebug Helper. Then click OK to finish setting up the remote debugger in PHPStorm.
+
+8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
+
+### Linux
+
+Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
+
+Be sure to see the "Linux only" documentation in the [docker-compose.dev.yml](https://github.com/markshust/docker-magento/blob/master/compose/docker-compose.dev.yml#L30) file. The `extra_hosts` param is required to be defined on Linux for proper DNS resolution.
+
+You may also have to increase a virtual memory map count on the host system. It is required by [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html).
+
+Add following line to `/etc/sysctl.conf`:
+
+```
+vm.max_map_count=262144
+```
+
+To enable Xdebug on linux, you'll also need to open port 9001 on the firewall with:
+
+```
+sudo iptables -A INPUT -p tcp --dport 9001 -j ACCEPT
+```
+
+### Blackfire.io
+
+These docker images have built-in support for Blackfire.io. To use it, first register your server ID and token with the Blackfire agent:
+
+```
+bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
+```
+
+Next, open up the `bin/start` helper script and uncomment the line:
+
+```
+#bin/root /etc/init.d/blackfire-agent start
+```
+
+Finally, restart the containers with `bin/restart`. After doing so, everything is now configured and you can use a browser extension to profile your Magento store with Blackfire.
