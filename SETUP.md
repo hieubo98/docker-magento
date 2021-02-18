@@ -15,9 +15,10 @@
     - `bin/start`
 
 5. For new projects: run Magento's setup install process with the below helper script. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 3. Also, be sure to setup [Composer Authentication](https://github.com/markshust/docker-magento#composer-authentication) before initiating the setup script.
-# Magento Setup Install Commands
 
-Starting in Magento 2.4 Elastic Search is required:
+6. Wait for 6 seconds
+
+7. Starting in Magento 2.4 Elastic Search is required:
 ```
 bin/clinotty bin/magento setup:install \
   --db-host=db \
@@ -79,7 +80,7 @@ dockergento magento setup:install \
 dockergento magento deploy:mode:set developer
 ```
 
-6. You may now access your site! Check out whatever domain you setup from within a web browser.
+8. You may now access your site! Check out whatever domain you setup from within a web browser.
     - `open http://magento2.test`
 
 ## New Magento 2 Project (Windows)
