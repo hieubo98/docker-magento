@@ -93,7 +93,7 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 ## Setup
 
-- For more details on how everything works, see the extended [Setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).  
+- For more details on how everything works, see the extended [Setup readme](https://github.com/nguyentrunghieu98/docker-magento/blob/master/SETUP.md).  
 
 ## Custom CLI Commands
 
