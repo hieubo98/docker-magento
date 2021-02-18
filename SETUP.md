@@ -16,7 +16,7 @@
 
 5. For new projects: run Magento's setup install process with the below helper script. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 3. Also, be sure to setup [Composer Authentication](https://github.com/markshust/docker-magento#composer-authentication) before initiating the setup script.
 
-6. Wait for 6 seconds
+6. Wait for 10 seconds
 
 7. Starting in Magento 2.4 Elastic Search is required:
 ```
