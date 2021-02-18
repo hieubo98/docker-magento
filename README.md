@@ -99,29 +99,29 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 - For more details on how everything works, see the extended [Setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).  
 
-# Create a DNS host entry for the site:
+1. Create a DNS host entry for the site:
 echo "127.0.0.1 ::1 yoursite.test" | sudo tee -a /etc/hosts
 
-# Start some containers, copy files ot them and then restart the containers:
+2. Start some containers, copy files ot them and then restart the containers:
 docker-compose up -d
 rm -rf src/vendor
 bin/copytocontainer --all ## Initial copy will take a few minutes...
 
-# Install composer dependencies, then copy artifacts back to the host (for debugging purposes):
+3.  Install composer dependencies, then copy artifacts back to the host (for debugging purposes):
 bin/composer install
 bin/copyfromcontainer vendor
 
-# Import existing database:
+4. Import existing database:
 bin/mysql < backups/magento.sql
 
-# Update database connection details to use the above Docker MySQL credentials:
-# Also note: creds for the MySQL server are defined at startup from env/db.env
-# vi src/app/etc/env.php
+- Update database connection details to use the above Docker MySQL credentials:
+- Also note: creds for the MySQL server are defined at startup from env/db.env
+- vi src/app/etc/env.php
 
-# Import app-specific environment settings:
+5. Import app-specific environment settings:
 bin/magento app:config:import
 
-# Set base URLs to local environment URL (if not defined in env.php file):
+6. Set base URLs to local environment URL (if not defined in env.php file):
 bin/magento config:set web/secure/base_url https://yoursite.test/
 bin/magento config:set web/unsecure/base_url https://yoursite.test/
 
