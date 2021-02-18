@@ -81,6 +81,8 @@ dockergento magento deploy:mode:set developer
 ```
 
 8. You may now access your site! Check out whatever domain you setup from within a web browser.
+    - `open folder /src edit nginx.conf.sample => nginx.conf`
+    - `bin/restart`
     - `open http://magento2.test`
 
 ## New Magento 2 Project (Windows)
