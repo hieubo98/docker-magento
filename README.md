@@ -1,6 +1,8 @@
 <h1 align="center">nguyentrunghieu98/docker-magento</h1
   
-#### For more details on how everything works, see the extended [setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).  
+  
+  
+#### For more details on how everything works, see the extended [Setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).  
 
 #### Project Setup
 
