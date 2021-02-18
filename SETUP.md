@@ -19,26 +19,40 @@
 
 Starting in Magento 2.4 Elastic Search is required:
 ```
-dockergento magento setup:install \
+bin/clinotty bin/magento setup:install \
   --db-host=db \
-  --db-name=magento \
+  --db-name=magentoee241 \
   --db-user=magento \
   --db-password=magento \
-  --base-url=http://localhost/ \
-  --admin-firstname=Chuck \
-  --admin-lastname=Greenman \
-  --admin-email=charlesgreenman@gmail.com \
-  --admin-user=chuck \
+  --base-url=https://magentoee241.docker/ \
+  --base-url-secure=https://magentoee241.docker/ \
   --backend-frontname=admin \
-  --admin-password=password123 \
+  --admin-firstname=Admin \
+  --admin-lastname=Admin \
+  --admin-email=admin@gmail.com \
+  --admin-user=admin2 \
+  --admin-password=admin@123 \
   --language=en_US \
   --currency=USD \
   --timezone=America/New_York \
-  --use-rewrites=1 \
+  --amqp-host=rabbitmq \
+  --amqp-port=5672 \
+  --amqp-user=guest \
+  --amqp-password=guest \
+  --amqp-virtualhost=/ \
+  --cache-backend=redis \
+  --cache-backend-redis-server=redis \
+  --cache-backend-redis-db=0 \
+  --page-cache=redis \
+  --page-cache-redis-server=redis \
+  --page-cache-redis-db=1 \
+  --session-save=redis \
+  --session-save-redis-host=redis \
+  --session-save-redis-log-level=4 \
+  --session-save-redis-db=2 \
+  --search-engine=elasticsearch7 \
   --elasticsearch-host=elasticsearch \
-  --elasticsearch-port=9200 \
-  --elasticsearch-username=magento \
-  --elasticsearch-password=magento
+  --use-rewrites=1
 ```
 
 For Magento 2.3 installations and below the following will still work:
