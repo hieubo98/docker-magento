@@ -6,7 +6,7 @@
 	- `curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash`
 
 2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with:
-    - `bin/download 2.3.0`
+    - `bin/download 2.4.2`
 
 3. Add an entry to your local hosts file with your custom domain. Assuming the domain you want to setup is `magento2.test`, enter the below. Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
     - `echo "127.0.0.1 magento2.test" | sudo tee -a /etc/hosts`
@@ -25,8 +25,8 @@ bin/clinotty bin/magento setup:install \
   --db-name=magento \
   --db-user=magento \
   --db-password=magento \
-  --base-url=https://magentoee241.docker/ \
-  --base-url-secure=https://magentoee241.docker/ \
+  --base-url=https://magento2.test/ \
+  --base-url-secure=https://magento2.test/ \
   --backend-frontname=admin \
   --admin-firstname=Admin \
   --admin-lastname=Admin \
@@ -63,7 +63,7 @@ dockergento magento setup:install \
   --db-name=magento \
   --db-user=magento \
   --db-password=magento \
-  --base-url=http://magento2.lo/ \
+  --base-url=http://magento2.test/ \
   --admin-firstname=John \
   --admin-lastname=Smith \
   --admin-email=john.smith@gmail.com \
