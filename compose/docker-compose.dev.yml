@@ -9,12 +9,12 @@ services:
   app:
     volumes: &appvolumes
       # Host mounts with performance penalty, only put what is necessary here
-      - ./src/app/code:/var/www/html/app/code:cached
-      - ./src/app/design:/var/www/html/app/design:cached
-      - ./src/app/etc:/var/www/html/app/etc:cached
-      - ./src/composer.json:/var/www/html/composer.json:cached
-      - ./src/composer.lock:/var/www/html/composer.lock:cached
-      - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
+      # - ./src/app/code:/var/www/html/app/code:cached
+      # - ./src/app/design:/var/www/html/app/design:cached
+      # - ./src/app/etc:/var/www/html/app/etc:cached
+      # - ./src/composer.json:/var/www/html/composer.json:cached
+      # - ./src/composer.lock:/var/www/html/composer.lock:cached
+      # - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
       #- ./src/auth.json:/var/www/html/auth.json:cached
       #- ./src/m2-hotfixes:/var/www/html/m2-hotfixes:cached
       #- ./src/patches:/var/www/html/patches:cached
@@ -23,20 +23,27 @@ services:
       # To sync your SSH to the container, uncomment the following line:
       #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
       # Linux only: remove the above lines and mount the entire src directory with:
-      #- ./src:/var/www/html:cached
+      - ./src:/var/www/html:cached
 
   phpfpm:
     volumes: *appvolumes
     # Linux only: host.docker.internal doesn't exist https://github.com/docker/for-linux/issues/264
     # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
-    #extra_hosts:
-    #  - "host.docker.internal:IP"
+    extra_hosts:
+     - "host.docker.internal:172.17.0.1"
 
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - "1025"
-      - "8025:8025"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports: 
+      - 88:80
+    depends_on: 
+      - db
+
+  # mailhog:
+  #   image: mailhog/mailhog
+  #   ports:
+  #     - "1025"
+  #     - "8025:8025"
 
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:

@@ -22,6 +22,8 @@ services:
 
   phpfpm:
     image: markoshust/magento-php:7.4-fpm-2
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
     links:
       - db
     volumes: *appvolumes
