@@ -6,9 +6,7 @@
 
 #### Project Setup
 
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9205849" target="_blank">Setup Docker for Mac & configure preferences</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9273365" target="_blank">Setup global Composer auth credentials</a>
-- <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/8974570" target="_blank">Automated setup for new installs</a>
+- [Setup readme](https://github.com/nguyentrunghieu98/docker-magento/blob/master/SETUP.md)
 
 #### Helper Scripts
 
