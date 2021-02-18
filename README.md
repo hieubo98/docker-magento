@@ -1,18 +1,4 @@
-<h1 align="center">nguyentrunghieu98/docker-magento</h1>
-
-## Free Course
-
-This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>. Level up your Magento 2 skills with a collection of resources including lessons, courses & more.
-
-<a href="https://m.academy" target="_blank"><img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/macademy-logo.png" alt="M.academy"></a>
-
-A free screencast course is available, which details the basic usage of this project:
-
-<a href="https://m.academy/courses/setup-magento-2-development-environment-docker" target="_blank">
-<img src="https://raw.githubusercontent.com/markshust/docker-magento/master/docs/course.png" alt="Course image"><br />
-<br />
-Setup a Magento 2 Development Environment with Docker
-</a>
+<h1 align="center">nguyentrunghieu98/docker-magento</h1
 
 ### Course Curriculm
 
