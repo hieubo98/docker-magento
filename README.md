@@ -1,7 +1,5 @@
 <h1 align="center">nguyentrunghieu98/docker-magento</h1
-
-### Course Curriculm
-
+  
 #### Project Setup
 
 - <a href="https://courses.m.academy/courses/setup-magento-2-development-environment-docker/lectures/9205849" target="_blank">Setup Docker for Mac & configure preferences</a>
