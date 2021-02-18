@@ -21,7 +21,7 @@ Starting in Magento 2.4 Elastic Search is required:
 ```
 bin/clinotty bin/magento setup:install \
   --db-host=db \
-  --db-name=magentoee241 \
+  --db-name=magento \
   --db-user=magento \
   --db-password=magento \
   --base-url=https://magentoee241.docker/ \
