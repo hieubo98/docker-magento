@@ -93,73 +93,11 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 ## Setup
 
-### Automated Setup (New Project)
-
-Run this automated one-liner from the directory you want to install your project.
-
-#### No sample data
-
-```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test 2.4.1
-```
-
-#### With sample data
-
-```bash
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test with-samples-2.4.1
-```
-
-The `magento2.test` above defines the hostname to use, and the `2.4.1` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
-
-Prefix the version with `with-samples-` if you would like to automatically install sample data along with Magento.
-
-After the one-liner above completes running, you should be able to access your site at `https://magento2.test`.
-
-### Manual Setup
-
-Same result as the one-liner above. Just replace `magento2.test` references with the hostname that you wish to use.
-
-#### New Projects
-
-```bash
-# Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
-
-# Download the version of Magento you want to use with:
-bin/download 2.4.1
-
-# If the download fails, the script will attempt to download Magento with Composer
-
-# or if you'd rather install with Composer, run:
-#
-# OPEN SOURCE:
-#
-# rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-community-edition=2.4.1 src
-#
-# COMMERCE:
-#
-# rm -rf src
-# composer create-project --repository=https://repo.magento.com/ --ignore-platform-reqs magento/project-enterprise-edition=2.4.1 src
-
-# Create a DNS host entry for the site:
-echo "127.0.0.1 ::1 magento2.test" | sudo tee -a /etc/hosts
-
-# Run the setup installer for Magento:
-bin/setup magento2.test
-
-open https://magento2.test
-```
+- For more details on how everything works, see the extended [Setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).  
 
 #### Existing Projects
 
-```bash
-# Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/template | bash
-
-# Replace with existing source code of your existing Magento instance:
-cp -R ~/Sites/existing src
-# or: git clone git@github.com:myrepo.git src
+- For more details on how everything works, see the extended [Setup readme](https://github.com/markshust/docker-magento/blob/master/SETUP.md).  
 
 # Create a DNS host entry for the site:
 echo "127.0.0.1 ::1 yoursite.test" | sudo tee -a /etc/hosts
