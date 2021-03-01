@@ -20,42 +20,7 @@
 6. Wait for 10 seconds
 
 7. Starting in Magento 2.4 Elastic Search is required:
-```
-bin/clinotty bin/magento setup:install \
-  --db-host=db \
-  --db-name=magento \
-  --db-user=magento \
-  --db-password=magento \
-  --base-url=https://magento2.test/ \
-  --base-url-secure=https://magento2.test/ \
-  --backend-frontname=admin \
-  --admin-firstname=Admin \
-  --admin-lastname=Admin \
-  --admin-email=admin@gmail.com \
-  --admin-user=admin \
-  --admin-password=admin@123 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/New_York \
-  --amqp-host=rabbitmq \
-  --amqp-port=5672 \
-  --amqp-user=guest \
-  --amqp-password=guest \
-  --amqp-virtualhost=/ \
-  --cache-backend=redis \
-  --cache-backend-redis-server=redis \
-  --cache-backend-redis-db=0 \
-  --page-cache=redis \
-  --page-cache-redis-server=redis \
-  --page-cache-redis-db=1 \
-  --session-save=redis \
-  --session-save-redis-host=redis \
-  --session-save-redis-log-level=4 \
-  --session-save-redis-db=2 \
-  --search-engine=elasticsearch7 \
-  --elasticsearch-host=elasticsearch \
-  --use-rewrites=1
-```
+  - bin/setup magento2.test
 
 For Magento 2.3 installations and below the following will still work:
 ```
