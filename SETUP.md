@@ -21,35 +21,7 @@
 
 7. Starting in Magento 2.4 Elastic Search is required:
   - `bin/setup magento2.test` 
-
-For Magento 2.3 installations and below the following will still work:
-```
-bin/clinotty bin/magento setup:install \
-  --db-host=db \
-  --db-name=magento \
-  --db-user=magento \
-  --db-password=magento \
-  --base-url=https://magento2.test/ \
-  --admin-firstname=Admin \
-  --admin-lastname=Admin \
-  --admin-email=admin@gmail.com \
-  --admin-user=admin \
-  --admin-password=admin@123 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/New_York \
-  --amqp-host=rabbitmq \
-  --amqp-port=5672 \
-  --amqp-user=guest \
-  --amqp-password=guest \
-  --amqp-virtualhost=/ \
-  --use-rewrites=1
-```
-
-```
-dockergento magento deploy:mode:set developer
-```
-
+  
 8. You may now access your site! Check out whatever domain you setup from within a web browser.
     - `open folder /src edit nginx.conf.sample => nginx.conf`
     - `bin/restart`
