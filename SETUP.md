@@ -4,7 +4,7 @@
 
 1. Create the project template by going to the place you want the new project (ex. cd ~/Sites/magento2), then run
 	- `curl -s https://raw.githubusercontent.com/nguyentrunghieu98/docker-magento/master/lib/template | bash`
-	- `Releases download version`
+	- `Edit folder ENV`
 
 2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with:
     - `bin/download 2.4.2`
