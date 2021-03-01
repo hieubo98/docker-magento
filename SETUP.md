@@ -20,7 +20,7 @@
 6. Wait for 10 seconds
 
 7. Starting in Magento 2.4 Elastic Search is required:
-  - bin/setup magento2.test
+  - `bin/setup magento2.test` 
 
 For Magento 2.3 installations and below the following will still work:
 ```
