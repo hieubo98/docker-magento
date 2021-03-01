@@ -10,11 +10,6 @@ BASE_URL=${1:-magento2.test}
 ES_HOST=elasticsearch
 ES_PORT=9200
 
-bin/stop
-
-docker-compose -f docker-compose.yml up -d
-[ $? != 0 ] && echo "Failed to start Docker services" && exit
-
 bin/clinotty chmod u+x bin/magento
 mv .vscode src
 
