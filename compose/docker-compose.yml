@@ -21,7 +21,7 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-2
+    image: markoshust/magento-php:7.4-fpm-5
     environment:
       PHP_IDE_CONFIG: serverName=localhost
     links:
@@ -40,13 +40,14 @@ services:
   redis:
     image: redis:5.0-alpine
 
-  elasticsearch:
-    image: markoshust/magento-elasticsearch:7.6.2-2
+ elasticsearch:
+    image: markoshust/magento-elasticsearch:7.7.1-0
     ports:
       - "9200:9200"
       - "9300:9300"
     environment:
       - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
 
   rabbitmq:
     image: rabbitmq:3.7-management-alpine
