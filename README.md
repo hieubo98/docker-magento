@@ -2,11 +2,11 @@
   
   
   
-#### For more details on how everything works, see the extended [Setup readme](https://github.com/nguyentrunghieu98/docker-magento/blob/master/SETUP.md).  
+#### For more details on how everything works, see the extended [Setup readme](https://github.com/nguyentrunghieu98/docker-magento2.4.x/blob/master/SETUP.md).  
 
 #### Project Setup
 
-- [Setup readme](https://github.com/nguyentrunghieu98/docker-magento/blob/master/SETUP.md)
+- [Setup readme](https://github.com/nguyentrunghieu98/docker-magento2.4.x/blob/master/SETUP.md)
 
 #### Helper Scripts
 
