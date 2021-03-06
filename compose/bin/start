@@ -48,3 +48,13 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-or
 #bin/root blackfire-agent --register --server-id={YOUR_SERVER_ID} --server-token={YOUR_SERVER_TOKEN}
 ## Then uncomment the below line (and leave uncommented) to start the agent automatically with bin/start:
 #bin/root /etc/init.d/blackfire-agent start
+
+# Caching
+# ------------------
+# For an improved developer experience, caches are automatically refreshed when related files are updated,
+# courtesy of cache-clean. This means you can keep all of the standard Magento caches enabled,
+# and this script will only clear the specific caches needed, and only when necessary.
+# To disable this functionality, uncomment the last line in the bin/start file to disable the watcher.
+
+bin/devtools-cli-check
+bin/cliq /var/www/.composer-global/vendor/bin/cache-clean.js --quiet --watch &
