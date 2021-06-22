@@ -1,3 +1,8 @@
+# Mark Shust's Docker Configuration for Magento
+# (https://github.com/markshust/docker-magento)
+#
+# Version 37.0.2
+
 version: "3"
 
 services:
@@ -9,7 +14,7 @@ services:
       # - ./src/app/etc:/var/www/html/app/etc:cached
       # - ./src/composer.json:/var/www/html/composer.json:cached
       # - ./src/composer.lock:/var/www/html/composer.lock:cached
-      # - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
+      - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
       #- ./src/auth.json:/var/www/html/auth.json:cached
       #- ./src/m2-hotfixes:/var/www/html/m2-hotfixes:cached
       #- ./src/patches:/var/www/html/patches:cached
@@ -17,7 +22,7 @@ services:
       #- ./src/var/report:/var/www/html/var/report:cached
       # To sync your SSH to the container, uncomment the following line:
       #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
-      # Linux only: remove the above lines and mount the entire src directory with:
+      # Linux only: remove the above lines (except nginx.conf line) and mount the entire src directory with:
       - ./src:/var/www/html:cached
 
   phpfpm:
@@ -34,11 +39,11 @@ services:
     depends_on: 
       - db
 
-  # mailhog:
-  #   image: mailhog/mailhog
-  #   ports:
-  #     - "1025"
-  #     - "8025:8025"
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025"
+      - "8025:8025"
 
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:

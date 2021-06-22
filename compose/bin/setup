@@ -1,6 +1,3 @@
-#!/bin/bash
-set -o errexit
-
 # shellcheck source=../env/db.env
 source env/db.env
 # shellcheck source=../env/magento.env
@@ -11,15 +8,8 @@ ES_HOST=elasticsearch
 ES_PORT=9200
 
 bin/clinotty chmod u+x bin/magento
-mv .vscode src
 
 echo "Waiting for connection to Elasticsearch..."
-bin/clinotty timeout 30 bash -c "
-    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
-        printf '.'
-        sleep 5
-    done"
-[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
 
 bin/clinotty bin/magento setup:install \
   --db-host="$MYSQL_HOST" \
@@ -57,9 +47,6 @@ bin/clinotty bin/magento setup:install \
   --elasticsearch-port=$ES_PORT \
   --use-rewrites=1
 
-echo "Copying files from container to host after install..."
-bin/copyfromcontainer --all
-
 echo "Turning on developer mode.."
 bin/clinotty bin/magento deploy:mode:set developer
 
@@ -71,9 +58,6 @@ bin/clinotty bin/magento indexer:reindex
 
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
-
-echo "Generating SSL certificate..."
-bin/setup-ssl "$BASE_URL"
 
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${BASE_URL}/"
