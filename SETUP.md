@@ -21,9 +21,8 @@
 
 7. Starting in Magento 2.4 Elastic Search is required:
   - `bin/setup magento2.test` 
-  - `OR You can use the command` 
   
-  ### Magento Setup Install Commands
+  ### Magento Setup Install Commands (You can use the command)
 
     Starting in Magento 2.4 Elastic Search is required:
     ```
