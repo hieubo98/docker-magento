@@ -31,8 +31,8 @@
     --db-name=magento \
     --db-user=magento \
     --db-password=magento \
-    --base-url=https://magento2ee.docker/ \
-    --base-url-secure=https://magento2ee.docker/ \
+    --base-url=https://magento2.docker/ \
+    --base-url-secure=https://magento2.docker/ \
     --admin-firstname=admin \
     --admin-lastname=Admin \
     --admin-email=admin@gmail.com \
@@ -56,8 +56,8 @@
     --db-name=magento \
     --db-user=magento \
     --db-password=magento \
-    --base-url=https://magento2ee.docker/ \
-    --base-url-secure=https://magento2ee.docker/ \
+    --base-url=https://magento2.docker/ \
+    --base-url-secure=https://magento2.docker/ \
     --admin-firstname=Admin \
     --admin-lastname=Admin \
     --admin-email=admin@gmail.com \
