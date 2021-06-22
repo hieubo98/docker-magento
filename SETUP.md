@@ -23,7 +23,7 @@
   - `bin/setup magento2.test` 
   - `OR You can use the command` 
   
-  # Magento Setup Install Commands
+  ### Magento Setup Install Commands
 
     Starting in Magento 2.4 Elastic Search is required:
     ```
