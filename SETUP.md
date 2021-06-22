@@ -71,7 +71,7 @@
     ```
 
     ```
-    dockergento magento deploy:mode:set developer
+    bin/clinotty bin/magento deploy:mode:set developer
     ```
 
   
