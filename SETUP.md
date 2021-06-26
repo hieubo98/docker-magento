@@ -42,11 +42,38 @@
     --language=en_US \
     --currency=USD \
     --timezone=America/New_York \
-    --use-rewrites=1 \
-    --elasticsearch-host=elasticsearch \
+    --amqp-host=rabbitmq \
+    --amqp-port=5672 \
+    --amqp-user=guest \
+    --amqp-password=guest \
+    --amqp-virtualhost=/ \
+    --cache-backend=redis \
+    --cache-backend-redis-server=redis \
+    --cache-backend-redis-db=0 \
+    --page-cache=redis \
+    --page-cache-redis-server=redis \
+    --page-cache-redis-db=1 \
+    --session-save=redis \
+    --session-save-redis-host=redis \
+    --session-save-redis-log-level=4 \
+    --session-save-redis-db=2 \
+    --elasticsearch-host=elasticsearch7 \
     --elasticsearch-port=9200 \
     --elasticsearch-username=magento \
-    --elasticsearch-password=magento
+    --elasticsearch-password=magento\
+    --use-rewrites=1
+   
+    echo "Turning on developer mode.."
+    bin/clinotty bin/magento deploy:mode:set developer
+
+    echo "Forcing deploy of static content to speed up initial requests..."
+    bin/clinotty bin/magento setup:static-content:deploy -f
+
+    echo "Re-indexing with Elasticsearch..."
+    bin/clinotty bin/magento indexer:reindex
+
+    echo "Clearing the cache to apply updates..."
+    bin/clinotty bin/magento cache:flush
     ```
 
     For Magento 2.3 installations and below the following will still work:
