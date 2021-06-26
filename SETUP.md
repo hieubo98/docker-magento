@@ -95,10 +95,18 @@
     --currency=USD \
     --timezone=America/New_York \
     --use-rewrites=1
-    ```
-
-    ```
+    
+    echo "Turning on developer mode.."
     bin/clinotty bin/magento deploy:mode:set developer
+
+    echo "Forcing deploy of static content to speed up initial requests..."
+    bin/clinotty bin/magento setup:static-content:deploy -f
+
+    echo "Re-indexing with Elasticsearch..."
+    bin/clinotty bin/magento indexer:reindex
+
+    echo "Clearing the cache to apply updates..."
+    bin/clinotty bin/magento cache:flush
     ```
 
   
