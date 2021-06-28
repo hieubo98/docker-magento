@@ -8,6 +8,7 @@
 
 2. Extract the contents of your current Magento site to the `src` folder, or download a fresh copy of the Magento source code for starting a new project with:
     - `download 2.4.2`
+    - `download 2.3.7`
 
 3. Add an entry to your local hosts file with your custom domain. Assuming the domain you want to setup is `magento2.test`, enter the below. Be sure to use a `.test` tld, as `.localhost` and `.dev` will present issues with domain resolution.
     - `echo "127.0.0.1 magento2.docker" | sudo tee -a /etc/hosts`
