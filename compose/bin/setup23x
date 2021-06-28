@@ -1,0 +1,60 @@
+#!/bin/bash
+set -o errexit
+
+# shellcheck source=../env/db.env
+source env/db.env
+# shellcheck source=../env/magento.env
+source env/magento.env
+
+BASE_URL=${1:-magento2.test}
+ES_HOST=elasticsearch
+ES_PORT=9200
+
+bin/clinotty chmod u+x bin/magento
+
+echo "Waiting for connection to Elasticsearch..."
+bin/clinotty timeout 100 bash -c "
+    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
+        printf '.'
+        sleep 5
+    done"
+[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
+
+  bin/clinotty bin/magento setup:install \
+  --db-host="$MYSQL_HOST" \
+  --db-name="$MYSQL_DATABASE" \
+  --db-user="$MYSQL_USER" \
+  --db-password="$MYSQL_PASSWORD" \
+  --base-url=https://$BASE_URL/ \
+  --backend-frontname="$MAGENTO_ADMIN_FRONTNAME" \
+  --admin-firstname="$MAGENTO_ADMIN_FIRST_NAME" \
+  --admin-lastname="$MAGENTO_ADMIN_LAST_NAME" \
+  --admin-email="$MAGENTO_ADMIN_EMAIL" \
+  --admin-user="$MAGENTO_ADMIN_USER" \
+  --admin-password="$MAGENTO_ADMIN_PASSWORD" \
+  --language="$MAGENTO_LOCALE" \
+  --currency="$MAGENTO_CURRENCY" \
+  --timezone="$MAGENTO_TIMEZONE" \
+  --amqp-host=rabbitmq \
+  --amqp-port=5672 \
+  --amqp-user=guest \
+  --amqp-password=guest \
+  --amqp-virtualhost=/ \
+  --use-rewrites=1
+
+echo "Turning on developer mode.."
+bin/clinotty bin/magento deploy:mode:set developer
+
+echo "Forcing deploy of static content to speed up initial requests..."
+bin/clinotty bin/magento setup:static-content:deploy -f
+
+echo "Re-indexing with Elasticsearch..."
+bin/clinotty bin/magento indexer:reindex
+
+echo "Clearing the cache to apply updates..."
+bin/clinotty bin/magento cache:flush
+
+echo "Docker development environment setup complete."
+echo "You may now access your Magento instance at https://${BASE_URL}/"
+
+bin/restart
