@@ -22,6 +22,19 @@
 
 7. Starting in Magento 2.4x or Magento 2.3x Elastic Search is required:
   - `bin/setup24x magento2.docker`
+  
+  **If you install Magento 2.3x 
+  - Edit docker-compose.yml 
+  ```
+  phpfpm:
+    image: markoshust/magento-php:7.3-fpm-6
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+    links:
+      - db
+    volumes: *appvolumes
+  ```
+
   - `bin/setup23x magento2.docker`
   
   ### Magento Setup Install Commands (You can use the command)
