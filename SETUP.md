@@ -19,8 +19,9 @@
 
 6. Wait for 10 seconds
 
-7. Starting in Magento 2.4 Elastic Search is required:
-  - `bin/setup magento2.test` 
+7. Starting in Magento 2.4x or Magento 2.3x Elastic Search is required:
+  - `bin/setup24x magento2.docker`
+  - `bin/setup23x magento2.docker`
   
   ### Magento Setup Install Commands (You can use the command)
 
@@ -112,7 +113,7 @@
   
 8. You may now access your site! Check out whatever domain you setup from within a web browser.
     - `bin/restart`
-    - `open http://magento2.test`
+    - `open http://magento2.docker
 
 ## New Magento 2 Project (Windows)
 
