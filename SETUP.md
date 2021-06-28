@@ -15,6 +15,18 @@
 
 4. Start your Docker containers with the provided helper script:
     - `bin/start`
+    
+    ## If you install Magento 2.3x
+    - `Edit docker-compose.yml`
+	  ```
+	  phpfpm:
+	    image: markoshust/magento-php:7.3-fpm-6
+	    environment:
+	      PHP_IDE_CONFIG: serverName=localhost
+	    links:
+	      - db
+	    volumes: *appvolumes
+	  ```
 
 5. For new projects: run Magento's setup install process with the below helper script. Feel free to edit this file to your liking; at the very least you will probably need to update the `base-url` value to the domain you setup in step 3. Also, be sure to setup [Composer Authentication](https://github.com/markshust/docker-magento#composer-authentication) before initiating the setup script.
 
@@ -24,17 +36,7 @@
   - `bin/setup24x magento2.docker`
   
   ## If you install Magento 2.3x
-  - `Edit docker-compose.yml`
-  ```
-  phpfpm:
-    image: markoshust/magento-php:7.3-fpm-6
-    environment:
-      PHP_IDE_CONFIG: serverName=localhost
-    links:
-      - db
-    volumes: *appvolumes
-  ```
-
+  
   - `bin/setup23x magento2.docker`
   
   ### Magento Setup Install Commands (You can use the command)
