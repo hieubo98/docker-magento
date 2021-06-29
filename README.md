@@ -216,7 +216,7 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 1.  First, install the [Chrome Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). After installed, right click on the Chrome icon for it and go to Options. Under IDE Key, select PHPStorm from the list and click Save.
 
-2.  Next, enable Xdebug in the PHP-FPM container by running: `bin/xdebug enable`, the restart the docker containers (CTRL+C then `bin/start`).
+2.  Next, enable Xdebug in the PHP-FPM container by running: `bin/xdebug24x enable` OR `bin/xdebug24x enable` , the restart the docker containers (CTRL+C then `bin/start`).
 
 3.  Then, open `PHPStorm > Preferences > Languages & Frameworks > PHP` and configure:
 
