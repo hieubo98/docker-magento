@@ -174,15 +174,24 @@ You also can use `bin/mysqldump` to export the database. The file will appear in
 bin/mysqldump > backups/magento.sql
 ```
 
+> Getting an "Access denied, you need (at least one of) the SUPER privilege(s) for this operation." message when running one of the above lines? Try running it as root with:
+> ```
+> bin/clinotty mysql -hdb -uroot -pmagento magento < src/backup.sql
+> ```
+> You can also remove the DEFINER lines from the MySQL backup file with:
+> ```
+> sed 's/\sDEFINER=`[^`]*`@`[^`]*`//g' -i src/backup.sql
+> ```
+
 ### Composer Authentication
 
 First setup Magento Marketplace authentication (details in the [DevDocs](http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html)).
 
 Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
 
-### Email / Mailhog
+### Email / Mailcatcher
 
-View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
+View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). During development, it's easiest to test emails using a third-party module such as [https://github.com/mageplaza/magento-2-smtp](Mageplaza's SMTP module). Set the mailserver host to `mailcatcher` and port to `1080`.
 
 ### Redis
 
@@ -245,6 +254,18 @@ Otherwise, this project now automatically sets up Xdebug support with VS Code. I
 
 8. Open up `src/pub/index.php`, and set a breakpoint near the end of the file. Go to `Run > Debug 'magento.test'`, and open up a web browser. Ensure the Chrome Xdebug helper is enabled by clicking on it > Debug. Navigate to your Magento store URL, and Xdebug within PHPStorm should now trigger the debugger and pause at the toggled breakpoint.
 
+### SSH
+
+Since version `40.0.0`, this project supports connecting to Docker with SSH/SFTP. This means that if you solely use either PhpStorm or VSCode, you no longer need to selectively mount host volumes in order to gain bi-directional sync capabilities from host to container. This will enable full speed in the native filesystem, as all files will be stored directly in the `appdata` container volume, rather than being synced from the host. This is especially useful if you'd like to sync larger directories such as `generated`, `pub` & `vendor`.
+
+Copy `docker-compose.dev-ssh.yml` to `docker-compose.dev.yml` before installing Magento to take advantage of this setup. Then, create an SFTP connection at  Preferences -> Build, Execution, Deployment -> Deployment. Connect to `localhost` and use `app` for the username & password. You can set additional options for working with Magento in PhpStorm at Preferences -> Build, Execution, Deployment -> Deployment -> Options.
+
+Note that you must use your IDE's SSH/SFTP functionality, otherwise changes will not be synced. To re-sync your host environment at any time, run:
+
+```
+bin/copyfromcontainer --all
+```
+
 ### Linux
 
 Running Docker on Linux should be pretty straight-forward. Note that you need to run some [post install commands](https://docs.docker.com/install/linux/linux-postinstall/) as well as [installing Docker Compose](https://docs.docker.com/compose/install/). These steps are taken care of automatically with Docker Desktop, but not on Linux.
@@ -263,6 +284,28 @@ To enable Xdebug on linux, you'll also need to open port 9001 on the firewall wi
 
 ```
 sudo iptables -A INPUT -p tcp --dport 9001 -j ACCEPT
+```
+
+### MFTF
+
+To work with MFTF you will need to first enable the `selenium` image in the `docker-compose.dev.yml` file. Then, you will need to run the following.
+
+1. Run mftf build process `bin/mftf build:project`. This should build the basic setup for mftf in your project.
+2. Update the `extra_host` values to match your Magento URL and IP in `docker-compose.dev.yml`.
+3. Update the values in `src/dev/tests/acceptance/.env`, including adding the new line `SELENIUM_HOST=selenium` to define the host Codeception should connect to.
+4. Run a sample test `bin/mftf run:test AdminLoginTest`.
+5. Update your `nginx.conf` file to allow access to the dev section with the following, before the final `deny all` section:
+
+```
+location ~* ^/dev/tests/acceptance/utils($|/) {
+    root $MAGE_ROOT;
+    location ~ ^/dev/tests/acceptance/utils/command.php {
+        fastcgi_pass   fastcgi_backend;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
 ```
 
 ### Blackfire.io
