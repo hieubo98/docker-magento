@@ -34,12 +34,6 @@ services:
     depends_on: 
       - db
 
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - "1025"
-      - "8025:8025"
-
   # Disabling cron by default as it uses higher CPU, enable if needed
   #cron:
   #  volumes: *appvolumes
