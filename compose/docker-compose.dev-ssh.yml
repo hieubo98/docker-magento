@@ -4,8 +4,6 @@ services:
   app:
     volumes: &appvolumes
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
-      ## To sync your SSH key to the container, uncomment:
-      #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
 
   ssh:
     image: markoshust/ssh

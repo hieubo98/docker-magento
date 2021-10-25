@@ -5,8 +5,6 @@ services:
     volumes: &appvolumes
       - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
       - ./src:/var/www/html:cached
-      ## To sync your SSH key to the container, uncomment:
-      #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
 
   phpfpm:
     volumes: *appvolumes
