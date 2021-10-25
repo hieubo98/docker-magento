@@ -22,6 +22,16 @@ services:
 
   phpfpm:
     volumes: *appvolumes
+    ## Replace 172.17.0.1 with the result of:
+    ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+  ssh:
+    image: markoshust/ssh
+    ports:
+      - "22:22"
+    volumes: *appvolumes
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
