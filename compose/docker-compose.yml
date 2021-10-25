@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.18-4
+    image: markoshust/magento-nginx:1.18-5
     ports:
       - "80:8000"
       - "443:8443"
@@ -16,12 +16,18 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-5
+    image: markoshust/magento-php:7.4-fpm-10
     environment:
       PHP_IDE_CONFIG: serverName=localhost
     links:
       - db
     volumes: *appvolumes
+    ## extra_hosts is required for selenium
+    ## For extra_hosts, replace "magento.test" with the URL of your site,
+    ## and also replace 172.17.0.1 with the result of:
+    ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    ## extra_hosts:
+    ##  - "magento.test:172.17.0.1"
 
   db:
     image: mariadb:10.4
@@ -50,7 +56,7 @@ services:
       - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
-    image: rabbitmq:3.7-management-alpine
+    image: rabbitmq:3.8.22-management-alpine
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -63,16 +69,6 @@ services:
     image: sj26/mailcatcher
     ports:
       - "1080:1080"
-
-  # Disabling cron by default as it uses higher CPU, enable if needed
-  #cron:
-  #  image: markoshust/magento-php:7.4-fpm-5
-  #  user: root
-  #  command: /usr/local/bin/cronstart
-  #  tty: true
-  #  links:
-  #    - db
-  #  volumes: *appvolumes
 
   # Disabling selenium by default as it is not required for all use cases.
   # For extra_hosts, replace "magento.test" with the URL of your site,

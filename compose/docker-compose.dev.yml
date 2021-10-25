@@ -22,10 +22,16 @@ services:
 
   phpfpm:
     volumes: *appvolumes
-    # Linux only: host.docker.internal doesn't exist https://github.com/docker/for-linux/issues/264
-    # Uncomment two lines below & replace IP with result of: docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    ## Replace 172.17.0.1 with the result of:
+    ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
     extra_hosts:
-     - "host.docker.internal:172.17.0.1"
+      - "host.docker.internal:172.17.0.1"
+
+  ssh:
+    image: markoshust/ssh
+    ports:
+      - "22:22"
+    volumes: *appvolumes
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -33,7 +39,3 @@ services:
       - 88:80
     depends_on: 
       - db
-
-  # Disabling cron by default as it uses higher CPU, enable if needed
-  #cron:
-  #  volumes: *appvolumes

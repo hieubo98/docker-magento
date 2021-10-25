@@ -42,19 +42,26 @@ bin/clinotty timeout 100 bash -c "
   --amqp-virtualhost=/ \
   --use-rewrites=1
 
-echo "Turning on developer mode.."
-bin/clinotty bin/magento deploy:mode:set developer
-
 echo "Forcing deploy of static content to speed up initial requests..."
 bin/clinotty bin/magento setup:static-content:deploy -f
 
 echo "Re-indexing with Elasticsearch..."
 bin/clinotty bin/magento indexer:reindex
 
+echo "Setting basic URL and generating SSL certificate..."
+bin/setup-domain "${DOMAIN}"
+
 echo "Clearing the cache to apply updates..."
 bin/clinotty bin/magento cache:flush
 
+echo "Ensuring Composer auth.json is setup..."
+bin/setup-composer-auth
+
+echo "Installing cron (see docker-compose.yml to enable)..."
+bin/magento cron:install
+
+echo "Turning on developer mode.."
+bin/clinotty bin/magento deploy:mode:set developer
+
 echo "Docker development environment setup complete."
 echo "You may now access your Magento instance at https://${BASE_URL}/"
-
-bin/restart
