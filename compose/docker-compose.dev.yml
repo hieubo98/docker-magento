@@ -27,11 +27,11 @@ services:
     extra_hosts:
       - "host.docker.internal:172.17.0.1"
 
-  ssh:
-    image: markoshust/ssh
-    ports:
-      - "22:22"
-    volumes: *appvolumes
+#  ssh:
+#    image: markoshust/ssh
+#    ports:
+#      - "22:22"
+#    volumes: *appvolumes
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin

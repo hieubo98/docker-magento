@@ -16,7 +16,7 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-10
+    image: markoshust/magento-php:7.4-fpm-5
     environment:
       PHP_IDE_CONFIG: serverName=localhost
     links:
@@ -65,10 +65,16 @@ services:
     environment:
       - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=1GB
 
-  mailcatcher:
-    image: sj26/mailcatcher
+#  mailcatcher:
+#    image: sj26/mailcatcher
+#    ports:
+#      - "1080:1080"
+
+  mailhog:
+    image: mailhog/mailhog
     ports:
-      - "1080:1080"
+      - "1025"
+      - "8025:8025"
 
   # Disabling selenium by default as it is not required for all use cases.
   # For extra_hosts, replace "magento.test" with the URL of your site,
