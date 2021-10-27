@@ -211,6 +211,10 @@ First setup Magento Marketplace authentication (details in the [DevDocs](http://
 
 Copy `src/auth.json.sample` to `src/auth.json`. Then, update the username and password values with your Magento public and private keys, respectively. Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
 
+### Email / MailHog
+
+View emails sent locally through Mailhog by visiting [http://{yourdomain}:8025](http://{yourdomain}:8025)
+
 ### Email / Mailcatcher
 
 View emails sent locally through Mailcatcher by visiting [http://{yourdomain}:1080](http://{yourdomain}:1080). During development, it's easiest to test emails using a third-party module such as [https://github.com/mageplaza/magento-2-smtp](Mageplaza's SMTP module). Set the mailserver host to `mailcatcher` and port to `1080`.
