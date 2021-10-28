@@ -290,7 +290,7 @@ Note that you must use your IDE's SSH/SFTP functionality, otherwise changes will
 
 ```
 Error starting userland proxy: listen tcp4 0.0.0.0:22: bind: address already in use
-**sudo kill $(sudo lsof -t -i:22)**
+sudo kill $(sudo lsof -t -i:22)
 ```
 
 ```
