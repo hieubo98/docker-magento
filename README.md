@@ -289,13 +289,13 @@ Copy `docker-compose.dev-ssh.yml` to `docker-compose.dev.yml` before installing 
 Note that you must use your IDE's SSH/SFTP functionality, otherwise changes will not be synced. To re-sync your host environment at any time, run:
 
 ```
-Error starting userland proxy: listen tcp4 0.0.0.0:22: bind: address already in use
-sudo kill $(sudo lsof -t -i:22)
-```
-
-```
 bin/copyfromcontainer --all
 ```
+
+> Error starting userland proxy: listen tcp4 0.0.0.0:22: bind: address already in use:
+> ```
+> sudo kill $(sudo lsof -t -i:22)
+> ```
 
 ### Linux
 
