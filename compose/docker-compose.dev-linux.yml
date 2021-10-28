@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  app:
+    volumes: &appvolumes
+      - ./src/nginx.conf.sample:/var/www/html/nginx.conf:cached
+      - ./src:/var/www/html:cached
+
+  phpfpm:
+    volumes: *appvolumes
+    ## Replace 172.17.0.1 with the result of:
+    ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"

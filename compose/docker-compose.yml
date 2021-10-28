@@ -1,13 +1,8 @@
-# Mark Shust's Docker Configuration for Magento
-# (https://github.com/markshust/docker-magento)
-#
-# Version 37.0.2
-
 version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.18-4
+    image: markoshust/magento-nginx:1.18-5
     ports:
       - "80:8000"
       - "443:8443"
@@ -27,9 +22,15 @@ services:
     links:
       - db
     volumes: *appvolumes
+    ## extra_hosts is required for selenium
+    ## For extra_hosts, replace "magento.test" with the URL of your site,
+    ## and also replace 172.17.0.1 with the result of:
+    ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+    ## extra_hosts:
+    ##  - "magento.test:172.17.0.1"
 
   db:
-    image: percona:5.7
+    image: mariadb:10.4
     command: --max_allowed_packet=64M
     ports:
       - "3306:3306"
@@ -47,25 +48,46 @@ services:
       - "9300:9300"
     environment:
       - "discovery.type=single-node"
+      ## Set custom heap size to avoid memory errors
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      ## Avoid test failures due to small disks
+      ## More info at https://github.com/markshust/docker-magento/issues/488
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "index.blocks.read_only_allow_delete"
 
   rabbitmq:
-    image: rabbitmq:3.7-management-alpine
+    image: rabbitmq:3.8.22-management-alpine
     ports:
       - "15672:15672"
       - "5672:5672"
     volumes:
       - rabbitmqdata:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=1GB
 
-  # Disabling cron by default as it uses higher CPU, enable if needed
-  #cron:
-  #  image: markoshust/magento-php:7.4-fpm-5
-  #  user: root
-  #  command: /usr/local/bin/cronstart
-  #  tty: true
-  #  links:
-  #    - db
-  #  volumes: *appvolumes
+#  mailcatcher:
+#    image: sj26/mailcatcher
+#    ports:
+#      - "1080:1080"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025"
+      - "8025:8025"
+
+  # Disabling selenium by default as it is not required for all use cases.
+  # For extra_hosts, replace "magento.test" with the URL of your site,
+  # and also replace 172.17.0.1 with the result of:
+  # docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+  # selenium:
+  #   image: selenium/standalone-chrome-debug:3.8.1
+  #   ports:
+  #     - "5900:5900"
+  #   links:
+  #     - app
+  #   extra_hosts:
+  #     - "magento.test:172.17.0.1"
 
 volumes:
   appdata:
