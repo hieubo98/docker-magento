@@ -74,7 +74,7 @@
     --session-save-redis-host=redis \
     --session-save-redis-log-level=4 \
     --session-save-redis-db=2 \
-    --elasticsearch-host=elasticsearch7 \
+    --elasticsearch-host=elasticsearch \
     --elasticsearch-port=9200 \
     --elasticsearch-username=magento \
     --elasticsearch-password=magento\
