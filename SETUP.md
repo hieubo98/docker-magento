@@ -95,9 +95,8 @@
 
     For Magento 2.3 installations and below the following will still work:
     
-    If use Elasticsuite
-    https://github.com/Smile-SA/elasticsuite/issues/2180#issuecomment-867994165
-    add: --es-hosts="elasticsearch:9200" \
+    If use Elasticsuite (https://github.com/Smile-SA/elasticsuite/issues/2180#issuecomment-867994165)
+    Add: --es-hosts="elasticsearch:9200" \
     
     ```
     bin/clinotty bin/magento setup:install \
@@ -134,7 +133,7 @@
   
 8. You may now access your site! Check out whatever domain you setup from within a web browser.
     - `bin/restart`
-    - `open http://magento2.docker
+    - `open http://magento2.docker`
 
 ## New Magento 2 Project (Windows)
 
