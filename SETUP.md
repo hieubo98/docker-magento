@@ -94,6 +94,11 @@
     ```
 
     For Magento 2.3 installations and below the following will still work:
+    
+    If use Elasticsuite
+    https://github.com/Smile-SA/elasticsuite/issues/2180#issuecomment-867994165
+    add: --es-hosts="elasticsearch:9200" \
+    
     ```
     bin/clinotty bin/magento setup:install \
     --db-host=db \
