@@ -35,7 +35,8 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    ports: 
-      - 88:80
-    depends_on: 
+    env_file: env/db.env
+    ports:
+      - "8080:80"
+    depends_on:
       - db
