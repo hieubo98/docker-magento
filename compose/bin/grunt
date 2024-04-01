@@ -1,2 +1,2 @@
-#!/bin/bash
-bin/cli grunt "$@"
+#!/usr/bin/env bash
+bin/cli npx grunt "$@"
