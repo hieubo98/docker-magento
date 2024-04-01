@@ -42,7 +42,7 @@ function parseYaml {
 }
 
 # Check if volume files exist to avoid creating an empty folder
-VOLUME_LIST=$(parseYaml compose.dev.yaml services_app_volumes)
+VOLUME_LIST=$(parseYaml docker-compose.dev.yml services_app_volumes)
 IGNORE_LIST="./src/app/code ./src/m2-hotfixes ./src/patches ./src/var/log ./src/var/report ./src"
 IS_VALID=true
 

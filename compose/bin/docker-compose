@@ -6,7 +6,7 @@ else
   DOCKER_COMPOSE="docker-compose"
 fi
 
-COMPOSE_FILES=("docker-compose.yaml" "docker-compose.healthcheck.yaml")
+COMPOSE_FILES=("docker-compose.yml" "docker-compose.healthcheck.yml")
 
 # If --no-dev is passed to this script, we won't load the compose.dev.yaml file,
 # but this argument should be removed so it isn't passed to docker compose.
@@ -15,7 +15,7 @@ if [ "$1" == "--no-dev" ]; then
   shift 1
 else
   # The "--no-dev" argument wasn't passed in, so let's load the dev config.
-  COMPOSE_FILES+=("docker-compose.dev.yaml")
+  COMPOSE_FILES+=("docker-compose.dev.yml")
 fi
 
 # Loop over the list of compose files, and prefix them with -f.
