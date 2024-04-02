@@ -46,7 +46,7 @@ VOLUME_LIST=$(parseYaml docker-compose.dev.yml services_app_volumes)
 IGNORE_LIST="./src/app/code ./src/m2-hotfixes ./src/patches ./src/var/log ./src/var/report ./src"
 IS_VALID=true
 
-# Loop through all files missing from the compose.dev.yaml file
+# Loop through all files missing from the docker-compose.dev.yml file
 for file in $VOLUME_LIST; do
   if [[ ! -e $file && " $IGNORE_LIST " != *" $file "* ]]; then
     echo "$file: No such file or directory"
