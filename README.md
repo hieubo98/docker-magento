@@ -2,11 +2,11 @@
 
 
 
-#### For more details on how everything works, see the extended [Setup readme](https://github.com/nguyentrunghieu98/docker-magento2.4.x/blob/master/SETUP.md).
+#### For more details on how everything works, see the extended [Setup readme](https://github.com/hieubo98/docker-magento2.4.x/blob/master/SETUP.md).
 
 #### Project Setup
 
-- [Setup readme](https://github.com/nguyentrunghieu98/docker-magento2.4.x/blob/master/SETUP.md)
+- [Setup readme](https://github.com/hieubo98/docker-magento2.4.x/blob/master/SETUP.md)
 
 #### Helper Scripts
 
@@ -115,7 +115,7 @@ This configuration has been tested on Mac & Linux. Windows is supported through 
 
 ## Setup
 
-- For more details on how everything works, see the extended [Setup readme](https://github.com/nguyentrunghieu98/docker-magento/blob/master/SETUP.md).
+- For more details on how everything works, see the extended [Setup readme](https://github.com/hieubo98/docker-magento/blob/master/SETUP.md).
 
 ### Automated Setup (New Project)
 
@@ -125,7 +125,7 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Run this automated one-liner from the directory you want to install your project.
-curl -s https://raw.githubusercontent.com/nguyentrunghieu98/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.6-p4 community
+curl -s https://raw.githubusercontent.com/hieubo98/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.6-p4 community
 ```
 
 The `magento.test` above defines the hostname to use, and the `2.4.6-p4` defines the Magento version to install. Note that since we need a write to `/etc/hosts` for DNS resolution, you will be prompted for your system password during setup.
@@ -153,7 +153,7 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/nguyentrunghieu98/docker-magento/master/lib/template | bash
+curl -s https://raw.githubusercontent.com/hieubo98/docker-magento/master/lib/template | bash
 
 # Download the version of Magento you want to use with:
 bin/download 2.4.6-p4 community
@@ -193,7 +193,7 @@ mkdir -p ~/Sites/magento
 cd $_
 
 # Download the Docker Compose template:
-curl -s https://raw.githubusercontent.com/nguyentrunghieu98/docker-magento/master/lib/template | bash
+curl -s https://raw.githubusercontent.com/hieubo98/docker-magento/master/lib/template | bash
 
 # Take a backup of your existing database:
 bin/mysqldump > ~/Sites/existing/magento.sql
@@ -229,8 +229,8 @@ open https://magento.test
 
 ### Elasticsearch vs OpenSearch
 OpenSearch is set as the default search engine when setting up this project. Follow the instructions below if you want to use Elasticsearch instead:
-1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/nguyentrunghieu98/docker-magento/blob/master/compose/docker-compose.yml#L55-L66) and [`docker-compose.healthcheck.yaml`](https://github.com/nguyentrunghieu98/docker-magento/blob/master/compose/docker-compose.healthcheck.yml#L38-L43) files
-2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/nguyentrunghieu98/docker-magento/blob/master/compose/docker-compose.yml#L70-L81) and [`docker-compose.healthcheck.yaml`](https://github.com/nguyentrunghieu98/docker-magento/blob/master/compose/docker-compose.healthcheck.yml#L45-L50) files
+1. Comment out or remove the `opensearch` container in both the [`compose.yaml`](https://github.com/hieubo98/docker-magento/blob/master/compose/docker-compose.yml#L55-L66) and [`docker-compose.healthcheck.yaml`](https://github.com/hieubo98/docker-magento/blob/master/compose/docker-compose.healthcheck.yml#L38-L43) files
+2. Uncomment the `elasticsearch` container in both the [`compose.yaml`](https://github.com/hieubo98/docker-magento/blob/master/compose/docker-compose.yml#L70-L81) and [`docker-compose.healthcheck.yaml`](https://github.com/hieubo98/docker-magento/blob/master/compose/docker-compose.healthcheck.yml#L45-L50) files
 3. Update the `bin/setup-install` command to use the Elasticsearch ratther than OpenSearch. Change:
 
 ```
@@ -436,7 +436,7 @@ PhpMyAdmin is built into the `docker-compose.dev.yaml` file. Simply open `http:/
 
 Install and enable the PHP Debug extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug).
 
-Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/nguyentrunghieu98/docker-magento/blame/master/compose/.vscode/launch.json) file.
+Otherwise, this project now automatically sets up Xdebug support with VS Code. If you wish to set this up manually, please see the [`.vscode/launch.json`](https://github.com/hieubo98/docker-magento/blame/master/compose/.vscode/launch.json) file.
 
 1. In VS Code, make sure that it's running in a WSL window, rather than in the default window.
 2. Install the [`PHP Debug`](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) extension on VS Code.
